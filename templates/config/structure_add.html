@@ -1,0 +1,104 @@
+{% load staticfiles %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--link rel="icon" href="../../favicon.ico"-->
+
+    <title>视觉中国IT管理平台</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bit37/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bit37/css/dashboard.css' %}" rel="stylesheet">
+    <script src="{% static 'bit37/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bit37/js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'bit37/js/highcharts.js' %}"></script>
+    <script src="{% static 'bit37/js/exporting.js' %}"></script>
+    <script src="{% static 'bit37/js/jquery.min.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="{% static '/bit37/js/jquery.min.js' %}"><\/script>')</script>
+    <script src="{% static 'bit37/js/chartkick.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--link href="/Users/tom/Downloads/bootstrap-3.3.7/docs/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"-->
+
+    <!-- Custom styles for this template -->
+
+    <!--link href="dashboard.css" rel="stylesheet"-->
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--script src="/Users/tom/Downloads/bootstrap-3.3.7/docs/assets/js/ie-emulation-modes-warning.js"></script-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">视觉中国</a>
+        </div>
+<!-- 左边导航栏部分-->
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://{{ server }}/login">注销</a></li>
+            <li><a href="http://{{ server }}/admin">登陆后台</a></li>
+          </ul>
+          <!--<form class="navbar-form navbar-right"-->
+            <!--input type="text" class="form-control" placeholder="Search...未开发"-->
+          <!--/form-->
+        </div>
+      </div>
+    </nav>
+<!-- 所有导航栏-->
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-1 col-md-1 sidebar">
+          <ul class="nav nav-sidebar">
+          </ul>
+        </div>
+    <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-1 main">
+<!-- 资源申请表单内容 -->
+<h3 class="page-header">应用及子账户信息录入</h3>
+<h5 class="label label-warning">全部是必填项目，如果没有某类信息请填写无.</h5>
+<!-- 自定义方式却掉django form默认样式 把label 标签和错误提示替换-->
+<div class="col-sm-10">    
+  <form method='post'>{% csrf_token %}
+    <h5>
+    <ul class="list-group">
+        {% for item in form %}
+        <li class="list-group-item">
+          {% for error in item.errors %}
+          {% endfor %}
+          <label class="label label-danger">{{ item.label }}</label>
+          {{ item }}
+        </li>
+        {% endfor %}
+    </ul>
+  </h5>
+      <button class="btn btn-primary" type="submit">确认提交</button>
+  </form>
+</div>
+
+<!-- 样式底部-->
+      </div>
+    </div>
+  </div>
+</div>
+{% include "index/footer.html" %}

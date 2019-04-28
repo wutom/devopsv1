@@ -1,0 +1,40 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+{% if server %}
+
+<h5 class="page-header">创建工单</h5>
+
+      <div class="col-sm-4">
+          <div class="list-group">
+            <a href="http://{{server}}/itres/add" class="list-group-item active">
+              <h4 class="list-group-item-heading">IT资源申请</h4>
+              <p class="list-group-item-text">包含所有的IT资源,如云虚拟主机,本地测试主机,OSS,网络配置,云子账户,其它云资源.</p>
+            </a>
+          </div>
+        </div><!-- /.col-sm-4 -->
+
+ <div class="col-sm-4">
+          <div class="list-group">
+            <a href="http://{{server}}/itres/appadd" class="list-group-item active">
+              <h4 class="list-group-item-heading">应用申请</h4>
+              <p class="list-group-item-text">所有应用程序,如基于Docker容器应用,基于OS系统的APP等,包含测试,预发布,生产,备份环境.</p>
+            </a>
+          </div>
+        </div><!-- /.col-sm-4 -->
+
+ <div class="col-sm-4">
+          <div class="list-group">
+            <a href="http://{{server}}/supp/ftp/add/" class="list-group-item active">
+              <h4 class="list-group-item-heading">FTP账户申请</h4>
+              <p class="list-group-item-text">所有FTP账户的创建申请,包含主机IP地址,用户名,供应商ID等.</p>
+            </a>
+          </div>
+        </div><!-- /.col-sm-4 -->
+
+{% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}

@@ -1,0 +1,65 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+
+<!-- ----------- 滚动信息js-->
+<script type="text/javascript">
+$(function(){   
+    var scrtime;   
+    $("#list").hover(function(){   
+         clearInterval(scrtime);//停止滚动   
+    },function(){   
+        scrtime = setInterval(function(){   
+                var ul = $("#list ul");   
+                var liHeight = ul.find("li:last").height();//计算最后一个li元素的高度   
+                ul.animate({marginTop : liHeight+20 +"px"},1000,function(){   
+                    ul.find("li:last").prependTo(ul)   
+                    ul.find("li:first").hide();   
+                    ul.css({marginTop:0});   
+                    ul.find("li:first").fadeIn(1000);   
+                });           
+        },3000);   
+     }).trigger("mouseleave");   
+});
+</script>
+
+
+<h5 class="page-header">运维数据概览</h5>
+	{% if v_list %}
+      <p>
+        <a href="#">项目数 <span class="badge">{{ v_list.pro_count }}</span></a>
+        <a href="#">在线域名 <span class="badge">{{ v_list.ten_dns }}</span></a>
+        <a href="#">设备数 <span class="badge">{{ v_list.dev_count }}</span></a>
+        <a href="#">负载均衡 <span class="badge">{{ v_list.ali_slb }}</span></a>
+        <a href="#">虚拟主机 <span class="badge">{{ v_list.ali_ecs }}</span></a>
+        <a href="#">数据库 <span class="badge">{{ v_list.ali_rds }}</span></a>
+      </p>
+  {% endif %}
+
+<h5 class="page-header"></h5>
+      <div class="row">
+        <div class="col-sm-10">
+
+          <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h6 class="panel-title">最近一周发版数:{{ week_count }} 总发版数({{ jenkins_count }})</h6>
+              </div>
+                    <div class="alert alert-success" role="alert" id="list">
+                      <ul>
+                        {% if j_list %}
+                        {% for id, k in j_list.items %}
+                        <li>
+            变更方式: {{ k.Action }} 应用名称: {{ k.ServiceName }}  发版时间:{{ k.time }}
+                        </li>
+                        {% endfor %}
+                        {% endif %}
+                      </ul>
+                    </div>
+          </div>
+        </div>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}
+

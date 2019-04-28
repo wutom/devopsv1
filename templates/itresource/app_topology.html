@@ -1,0 +1,155 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+
+{% if v_list %}
+        <h5 class="page-header">
+          应用名: {{ v_list.name }} 拓扑图
+        </h5>
+{% endif %}
+<!--HTML-->
+
+<div class="none node" id="node-templates" data-container="body" data-placement="top" data-html="true" data-trigger="hover">
+    <div class="node-container">
+        <span class="node-text"></span>
+    </div>
+</div>
+<div class="bktopo-container">
+    <div class="bktopo_demo" id="bktopo_demo1">
+        <div class="none node" id="node-templates" data-container="body" data-placement="top" data-html="true" data-trigger="hover">
+            <div class="node-container">
+                <span class="node-text"></span>
+            </div>
+        </div>
+        <div class="bktopo_box" style="height:390px;"></div>
+    </div>
+</div>
+
+{% if v_list %}
+        <h5 class="page-header"><a href="#">应用详情:{{ v_list.name }}</a></h5>
+            <div class="table-responsive">
+            <tbody>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                  <td>应用域名</td>
+                  <td>{{ v_list.domain }}</td>
+                </tr>
+                <tr>
+                  <td>使用者</td>
+                  <td>{{ v_list.owner }}</td>
+                </tr>
+                <tr>
+                  <td>归属项目</td>
+                  <td>{{ v_list.project }}</td>
+                </tr>
+                <tr>
+                  <td>类型</td>
+                  <td>{{ v_list.app_types }}</td>
+                </tr>
+                <tr>
+                  <td>代码地址</td>
+                  <td>{{ v_list.code_addr }}</td>
+                </tr>
+                <tr>
+                  <td>数据库ID</td>
+                  <td>{{ v_list.data_id }}</td>
+                </tr>
+                <tr>
+                  <td>部署环境</td>
+                   <td>{{ v_list.env_types }}</td>
+                </tr>
+                <tr>
+                  <td>语言</td>
+                   <td>{{ v_list.code_types }}</td>
+                </tr>
+                <tr>
+                  <td>端口</td>
+                   <td>{{ v_list.port }}</td>
+                </tr>
+                <tr>
+                  <td>数量</td>
+                   <td>{{ v_list.amount }}</td>
+                </tr>
+                <tr>
+                  <td>OSS操作权限</td>
+                   <td>{{ v_list.oss_remark }}</td>
+                </tr>
+              </thead>
+            </tbody>
+            </table>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+{% if v_list %}
+<script>
+$(document).ready(function(){
+    //bktopo_demo1_js_start
+    var data1 = {
+        "nodes":[
+            {id: "node1",  x: 300, y:  20, height: 50, width: 160, text: "应用名:{{ v_list.name }}", className: "node success"},
+            {id: "node2",  x: 50, y: 125, height: 35, width: 120, text: "环境:{{ v_list.env_types }}", className: "node"},
+            {id: "node3",  x: 300, y: 120, height: 50, width: 320, text: "域名:{{ v_list.domain }}", className: "node success"},
+            {id: "node4",  x: 621, y: 120, height: 50, width: 120, text: "使用者:{{ v_list.owner }}", className: "node"},
+            {id: "node5",  x: 742, y: 120, height: 50, width: 120, text: "项目:{{ v_list.project }}", className: "node"},
+            {id: "node6",  x: 50, y: 160, height: 35, width: 120, text: "语言:{{ v_list.code_types }}", className: "node"},
+            {id: "node7",  x: 50, y: 195, height: 35, width: 120, text: "端口:{{ v_list.port }}", className: "node"},
+            {id: "node8",  x: 300, y: 220, height: 50, width: 120, text: "类型:{{ v_list.app_types }}", className: "node success"},
+            {id: "node9",  x: 421, y: 220, height: 50, width: 320, text: "代码地址:{{ v_list.code_addr }}", className: "node"},
+            {id: "node10",  x: 50, y: 230, height: 35, width: 120, text: "数量:{{ v_list.amount }}", className: "node"},
+            {id: "node11",  x: 300, y: 320, height: 50, width: 160, text: "数据库ID:{{ v_list.data_id }}", className: "node danger"},
+            {id: "node12",  x: 461, y: 320, height: 50, width: 160, text: "OSS:{{ v_list.ak }}", className: "node warning"},
+            
+        ],
+        "edges": [
+            {source: "node1",  sDirection:'bottom', target: "node3", tDirection:'top', edgesType:"success"},
+            {source: "node3",  sDirection:'bottom', target: "node8", tDirection:'top', edgesType:"success"},
+            {source: "node10",  sDirection:'bottom', target: "node8", tDirection:'left', edgesType:"default"},
+            {source: "node8",  sDirection:'bottom', target: "node11", tDirection:'top', edgesType:"success"},
+            {source: "node8",  sDirection:'bottom', target: "node12", tDirection:'top', edgesType:"success"},
+        ]
+    };
+  
+    $('#bktopo_demo1 .bktopo_box').bkTopology({
+        lineWidth: 4,
+        data: data1,      //配置数据源
+        drag: true,      //是否支持拖拽移动
+        lineType: [      //配置线条的类型
+            {type:'success',lineColor:'#46C37B'},
+            {type:'info',lineColor:'#4A9BFF'},
+            {type:'warning',lineColor:'#f0a63a'},
+            {type:'danger',lineColor:'#c94d3c'},
+            {type:'default',lineColor:'#aaa'}
+        ]
+    });
+    //$(".node").popover();
+    bktopo_demo1_js_end
+ 
+})
+</script>
+{% endif %}
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script-->
+    <script src="{% static 'bit37/js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'bit37/js/highcharts.js' %}"></script>
+    <script src="{% static 'bit37/js/exporting.js' %}"></script>
+    <script src="{% static 'bit37/js/jquery.min.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="{% static '/bit37/js/jquery.min.js' %}"><\/script>')</script>
+    <script src="{% static 'bit37/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bit37/js/chartkick.js' %}"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bkTopology-1.1/js/bkTopology.js"></script>
+  </body>
+</html>

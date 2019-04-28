@@ -1,0 +1,54 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+
+{% if details %}
+        <h5 class="page-header"><a href="#">RDS实例信息</a></h5>
+            <div class="table-responsive">
+            <tbody>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                  <td>实例ID</td>
+                  <td>{{ details.DBInstanceId }}</td>
+                </tr>
+                <tr>
+                  <td>实例名称</td>
+                  <td>{{ details.DBInstanceDescription }}</td>
+                </tr>
+                <tr>
+                  <td>实例地址</td>
+                  <td>{{ details.ConnectionString }}</td>
+                </tr>
+                <tr>
+                  <td>实例版本</td>
+                  <td>{{ details.EngineVersion }}</td>
+                </tr>
+                <tr>
+                  <td>MaxConnections</td>
+                  <td>{{ details.MaxConnections }}</td>
+                </tr>
+                <tr>
+                  <td>MaxIOPS</td>
+                  <td>{{ details.MaxIOPS }}</td>
+                </tr>
+                <tr>
+                  <td>CPU</td>
+                   <td>{{ details.DBInstanceCPU }}</td>
+                </tr>
+                <tr>
+                  <td>实例内存</td>
+                  <td>{{ details.DBInstanceMemory }}</td>
+                </tr>
+                <tr>
+                  <td>实例存储空间</td>
+                  <td>{{ details.DBInstanceStorage }}</td>
+                </tr>
+              </thead>
+            </tbody>
+            </table>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}

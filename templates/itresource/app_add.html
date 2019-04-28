@@ -1,0 +1,47 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+
+<!-- 资源申请表单内容 -->
+<h5 class="page-header">应用申请</h5>
+<h2 class="label label-warning">应用程序分为容器应用和系统应用,应用名称请先与运维沟通,由运维统一后台录入。然后再申请此工单</h2>
+<!-- 自定义方式却掉django form默认样式 把label 标签和错误提示替换-->
+<div class="col-sm-10">    
+  <form method='post'>{% csrf_token %}
+    <h5>
+    <ul class="list-group">
+        {% for item in form %}
+        <li class="list-group-item">
+          {% for error in item.errors %}
+          {% endfor %}
+          <label class="label label-success">{{ item.label }}</label>
+          {{ item }}
+        </li>
+        {% endfor %}
+    </ul>
+  </h5>
+      <a class="label label-primary" data-toggle="modal" data-target="#myModal">申请提交</a>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">应用申请提示</h4>
+            </div>
+            <div class="alert alert-danger" role="alert">申请提交后请联系运维会成后续操作!</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button class="btn btn-primary" type="submit">确认提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+  </form>
+</div>
+
+<!-- 样式底部-->
+      </div>
+    </div>
+  </div>
+</div>
+{% include "index/footer.html" %}

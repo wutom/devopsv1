@@ -1,0 +1,46 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+
+{% if details %}
+        <h5 class="page-header"><a href="#">ECS实例信息</a></h5>
+            <div class="table-responsive">
+            <tbody>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                  <td>实例ID</td>
+                  <td>{{ details.InstanceId }}</td>
+                </tr>
+                <tr>
+                  <td>实例名称</td>
+                  <td>{{ details.InstanceName }}</td>
+                </tr>
+                <tr>
+                  <td>公网地址</td>
+                  <td>{{ details.PublicIpAddress }}</td>
+                </tr>
+                <tr>
+                  <td>私网地址</td>
+                  <td>{{ details.InnerIpAddress }}</td>
+                </tr>
+                <tr>
+                  <td>CPU</td>
+                  <td>{{ details.Cpu }}</td>
+                </tr>
+                <tr>
+                  <td>内存</td>
+                  <td>{{ details.Memory }}</td>
+                </tr>
+                <tr>
+                  <td>状态</td>
+                   <td>{{ details.Status }}</td>
+                </tr>
+              </thead>
+            </tbody>
+            </table>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}

@@ -1,0 +1,64 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+        <h5 class="page-header">
+          <a href="http://{{ server }}/supp/ftp/add/">FTP账户申请</a>
+        </h5>
+        <h5 class="page-header">
+          <a href="http://{{ server }}/supp/cre/">申请中</a>
+          <a class="label label-warning" href="http://{{ server }}/supp/">全部账户</a>
+        </h5>
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>编号</th>
+                  <th>申请人</th>
+                  <th>归属项目</th>
+                  <th>服务地址</th>
+                  <th>用户名</th>
+                  <th>所属区域</th>
+                  <th>创建时间</th>
+                  <th>状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% if v_list %}
+                {% for id, k in v_list.items %}
+                <tr>
+                  <td>{{ id }}</td>
+                  <td><a href="http://{{ server }}/supp/user/{{ k.id }}/">{{ k.applicant }}</td>
+                  <td>{{ k.project }}</td>
+                  <td>{{ k.addr }}</td>
+                  <td>{{ k.user }}</td>
+                  <td>{{ k.zone }}</td>
+                  <td>{{ k.creation }}</td>
+                  <td>{{ k.status }}</td>
+                  <td>{% if k.status_id == 3 %}
+                    <a class="label label-primary" href="http://{{ server }}/supp/ftp/enable/{{ k.id }}/">启用</a>
+                    {% elif k.status_id == 2 %}
+                    <a class="label label-danger" href="http://{{ server }}/supp/ftp/stop/{{ k.id }}/">停用</a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+            </tbody>
+            </table>
+<!--分页显示，在视图中引用分页变量，进行判断，默认显示页面没有href链接 -->
+            <ul class="pagination">
+            {% if list_page %}
+              {% for pn in list_page.paginator.page_range %}
+                {% ifequal pn list_page.number %}
+            <li role="presentation" class="active"><a>{{ pn }}</a></li>
+                {% else %}
+            <li><a href="?page={{ pn }}">{{ pn }}</a></li>
+                {% endifequal %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}

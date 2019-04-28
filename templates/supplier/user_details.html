@@ -1,0 +1,74 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+
+{% if details %}
+        <h5 class="page-header"><a href="#">FTP账户详细信息</a></h5>
+            <div class="table-responsive">
+            <tbody>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                  <td>工单ID</td>
+                  <td>{{ details.sp_association_id }}</td>
+                </tr>
+                <tr>
+                  <td>申请人</td>
+                  <td>{{ details.sp_applicant }}</td>
+                </tr>
+                <tr>
+                  <td>申请人Email</td>
+                  <td>{{ details.sp_applicat_email }}</td>
+                </tr>
+                <tr>
+                  <td>供应商ID</td>
+                  <td>{{ details.sp_id }}</td>
+                </tr>
+                <tr>
+                  <td>归属项目</td>
+                  <td>{{ details.sp_project }}</td>
+                </tr>
+                <tr>
+                  <td>服务器地址</td>
+                  <td>{{ details.sp_addr }}</td>
+                </tr>
+                <tr>
+                  <td>所在地区</td>
+                  <td>{{ details.sp_zone }}</td>
+                </tr>
+                <tr>
+                  <td>FTP用户名</td>
+                  <td>{{ details.sp_user }}</td>
+                </tr>
+                <tr>
+                  <td>FTP密码</td>
+                  <td>{{ details.sp_pwd }}</td>
+                </tr>
+                <tr>
+                  <td>权限</td>
+                   <td>{{ details.sp_auth }}</td>
+                </tr>
+                <tr>
+                  <td>状态</td>
+                  <td>{{ details.sp_status }}</td>
+                </tr>
+                <tr>
+                  <td>申请时间</td>
+                  <td>{{ details.sp_creation }}</td>
+                </tr>
+                <tr>
+                  <td>申请备注</td>
+                  <td>{{ details.sp_details }}</td>
+                </tr>
+                <tr>
+                  <td>备注信息</td>
+                  <td>{{ details.sp_details }}</td>
+                </tr>
+              </thead>
+            </tbody>
+            </table>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}

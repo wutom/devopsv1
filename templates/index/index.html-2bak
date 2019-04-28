@@ -1,0 +1,143 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+
+ <table class="table">
+            <thead>
+              <tr>
+                <th>运维数据概览</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                {% if v_list %}
+        <li><a href="#">项目数: <span class="badge">{{ v_list.pro_count }}</span></a></li>
+        <li><a href="#">在线域名: <span class="badge">{{ v_list.ten_dns }}</span></a></li>
+        <li><a href="#">设备数: <span class="badge">{{ v_list.dev_count }}</span></a></li>
+        <li><a href="#">负载均衡: <span class="badge">{{ v_list.ali_slb }}</span></a></li>
+        <li><a href="#">虚拟主机: <span class="badge">{{ v_list.ali_ecs }}</span></a></li>
+        <li><a href="#">数据库: <span class="badge">{{ v_list.ali_rds }}</span></a></li>
+                {% endif %}   
+                </td>
+                <td>
+                    <div id="charts_pie_demo1" style="width:80%;padding-top:16px;"></div>
+                </td>
+              </tr>
+              </tr>
+            </tbody>
+          </table>
+
+<h5 class="page-header"></h5>
+      <div class="row">
+        <div class="col-sm-10">
+
+          <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h6 class="panel-title">最近一周发版数:{{ week_count }} 总发版数({{ jenkins_count }})</h6>
+              </div>
+                    <div class="alert alert-success" role="alert" id="list">
+                      <ul>
+                        {% if j_list %}
+                        {% for id, k in j_list.items %}
+                        <li>
+            变更方式: {{ k.Action }} 应用名称: {{ k.ServiceName }}  发版时间:{{ k.time }}
+                        </li>
+                        {% endfor %}
+                        {% endif %}
+                      </ul>
+                    </div>
+          </div>
+        </div>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!--JS-->
+<script type="text/javascript">
+//charts_pie_demo1_js_start
+function createKendoPieChart(conf){
+    // 创建图表
+    $(conf.selector).kendoChart({
+        title: {
+            text: conf.data.title
+        },
+        legend: {
+           position: "bottom"
+        },
+        theme : 'bootstrap',
+        seriesDefaults: {
+            labels: {
+                template: "#= category # - #= kendo.format('{0:P}', percentage)#",
+                position: "outsideEnd",
+                visible: true,
+                background: "transparent"
+            }
+        },
+        series: [{
+            type: 'pie',
+            data: conf.data.series
+        }],
+        tooltip: {
+            visible: true,
+            template: "#= category # - #= kendo.format('{0:P}', percentage) #"
+        }
+    });
+    $(window).resize(function(){
+        $(conf.selector).data("kendoChart").refresh();
+    });
+}
+
+function initKendoPieChart(conf){
+    // 异步请求后台数据
+    $.ajax({
+        url: conf.url,
+        type: 'GET',
+        dataType: conf.dataType,
+        success: function(res){
+            //获取数据成功
+            if (res.result){
+                var data = res.data;
+                createKendoPieChart({
+                    selector: conf.container, // 图表容器
+                    data: data // 图表数据
+                });
+            } 
+        }
+    });
+} 
+
+
+$(function(){
+    initKendoPieChart({
+        url: 'http://{{ server }}/static/json/demo.json',
+        dataType: 'json',
+        container: '#charts_pie_demo1'
+    });  
+});
+//charts_pie_demo1_js_end
+</script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script-->
+    <script src="{% static 'bit37/js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'bit37/js/highcharts.js' %}"></script>
+    <script src="{% static 'bit37/js/exporting.js' %}"></script>
+    <script src="{% static 'bit37/js/jquery.min.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="{% static '/bit37/js/jquery.min.js' %}"><\/script>')</script>
+    <script src="{% static 'bit37/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bit37/js/chartkick.js' %}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <!--script src="/Users/tom/Downloads/bootstrap-3.3.7/docs/assets/js/vendor/holder.min.js"></script-->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--script src="/Users/tom/Downloads/bootstrap-3.3.7/docs/assets/js/ie10-viewport-bug-workaround.js"></script-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+  </body>
+</html>
+

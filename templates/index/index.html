@@ -1,0 +1,92 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+
+<h5 class="page-header">
+    IT资源数据汇总
+    <a href="http://{{ server }}/itres/appupdate/">程序发版汇总</a>
+</h5>
+
+<div id="charts_bar_it" style="height:500px;padding:10px;"></div>
+
+<!--JS 绘制柱状图 运维-IT资源数据概览-->
+<script type="text/javascript">
+//charts_bar_demo_js_start
+function createKendoBarChart(conf){
+    // 创建图表
+    $(conf.selector).kendoChart({
+        legend: {
+            position: "bottom"
+        },
+        theme : 'bootstrap',
+        categoryAxis : {
+            majorGridLines : {
+                visible: false
+            },
+            categories : conf.data.categories
+        },
+        seriesDefaults : {
+            type: conf.type
+        },
+        series : conf.data.series,
+        valueAxis : {
+            max: 400,
+            line: {
+                visible: false
+            },
+            minorGridLines: {
+                visible: false
+            },
+            labels : {
+                rotation: "auto"
+            }
+        },
+        tooltip: {
+            visible : true,
+            template: "#= series.name # #= value #"
+        }
+    });
+}
+function initKendoBarChart(conf){
+    $.ajax({
+        url: conf.url,
+        type: 'GET',
+        dataType: conf.dataType,
+        success: function(res){
+            //获取数据成功
+            if (res.result){
+                var data = res.data;
+                createKendoBarChart({
+                    selector: conf.containerId, // 图表容器
+                    type: "column", // 图表类型
+                    data: data, // 图表数据
+                });
+            }
+        }
+    })
+}
+$(function(){
+    initKendoBarChart({
+        url: 'http://{{ server }}/static/json/bar_it.json',
+        dataType: 'json',
+        containerId: '#charts_bar_it'
+    });   
+}); 
+
+</script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script-->
+    <script src="{% static 'bit37/js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'bit37/js/highcharts.js' %}"></script>
+    <script src="{% static 'bit37/js/exporting.js' %}"></script>
+    <script src="{% static 'bit37/js/jquery.min.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="{% static '/bit37/js/jquery.min.js' %}"><\/script>')</script>
+    <script src="{% static 'bit37/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bit37/js/chartkick.js' %}"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+  </body>
+</html>

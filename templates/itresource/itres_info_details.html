@@ -1,0 +1,77 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+        <h5 class="page-header"><a href="#">工单详情</a></h5>
+          <div class="table-responsive">
+            <tbody>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                  <td>申请人</td>
+                  <td>{{ details.res_applicant }}</td>
+                </tr>
+                <tr>
+                  <td>申请人Email</td>
+                  <td>{{ details.res_applicat_email }}</td>
+                </tr>
+                <tr>
+                  <td>资源类型</td>
+                  <td>{{ details.res_types }}</td>
+                </tr>
+                <tr>
+                  <td>申请部门</td>
+                  <td>{{ details.res_department }}</td>
+                </tr>
+                <tr>
+                  <td>归属项目</td>
+                  <td>{{ details.project }}</td>
+                </tr>
+                <tr>
+                  <td>审批人</td>
+                  <td>{{ details.res_approver }}</td>
+                </tr>
+                <tr>
+                  <td>申请时间</td>
+                   <td>{{ details.res_creation }}</td>
+                </tr>
+                <tr>
+                  <td>实例ID</td>
+                  <td>{{ details.res_resid }}</td>
+                </tr>
+                <tr>
+                  <td>工单ID</td>
+                  <td>{{ details.res_association_id }}</td>
+                </tr>
+                <tr>
+                  <td>使用周期</td>
+                  <td>{{ details.res_cycle }}</td>
+                </tr>
+                <tr>
+                  <td>状态</td>
+                  <td>{{ details.res_status }}</td>
+                </tr>
+                  <tr>
+                  <td>资源详情</td>
+                  <td>&nbsp;</td>
+                   <tr>
+                  <td>&nbsp;</td>
+                  <td>{{ details.res_details }}</td>
+                  </tr>  
+                </tr>
+                <tr>
+                  <tr>
+                  <td>资源备注</td>
+                  <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                  <td>&nbsp;</td>
+                  <td>{{ details.res_remark }}</td>
+                  </tr>
+                </tr>
+              </thead>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}

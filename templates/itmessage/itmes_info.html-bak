@@ -1,0 +1,68 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+<!-- 侧边主导航栏-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+          <li><a href="http://{{ server }}/">信息概览 <span class="sr-only">(current)</span></a></li>
+<!-- 文档导航栏-->
+      {% if fil %}
+        {% for id, fi in fil.items %}
+          <li><a href="http://{{ img_server }}/{{ fi.fi_image }}">{{ fi.fi_name }}</a></li>
+        {% endfor %}
+      {% endif %}      
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="http://{{ server }}/idcinfo">数据中心</a></li>
+            <li class="active"><a href="http://{{ server }}/itmes">资源信息</a></li>
+            <li><a href="http://{{ server }}/itres">资源工单</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h4 class="sub-header"><a href="add/">RDS信息</a></h4>
+          <div class="table-responsive">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>编号</th>
+                  <th>实例ID</th>
+                  <th>实例名称</th>
+                  <th>实例地址</th>
+                  <th>归属项目</th>
+                  <th>状态</th>
+                  <th>关联ID</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% if rds_list %}
+                {% for id, la in rds_list.items %}
+                <tr>
+                  <td>{{ id }}</td>
+                  <td><a href="http://{{ server }}/itmes/info/{{ id }}/">{{ la.rds_id }}</td>
+                  <td>{{ la.rds_name }}</td>
+                  <td>{{ la.rds_conn }}</td>
+                  <td>{{ la.rds_project }}</td>
+                  <td>{{ la.rds_status }}</td>
+                  <td><a href="http://{{ server }}/itres/info/{{ rds_itres_info_id }}/">{{ la.rds_association_id }}</td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+            </tbody>
+            </table>
+<!--分页显示，在视图中引用分页变量，进行判断，默认显示页面没有href链接 -->
+            <ul class="pagination">
+            {% if rds_list_page %}
+              {% for pn in rds_list_page.paginator.page_range %}
+                {% ifequal pn rds_list_page.number %}
+            <li role="presentation" class="active"><a>{{ pn }}</a></li>
+                {% else %}
+            <li><a href="?page={{ pn }}">{{ pn }}</a></li>
+                {% endifequal %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}

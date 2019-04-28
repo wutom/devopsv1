@@ -1,0 +1,60 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+        <h5 class="page-header">资源信息</h5>
+        <h5 class="page-header">
+          <a class="label label-warning" href="http://{{ server }}/itmes/">SLB信息({{slb_count}})</a>
+          <a href="http://{{ server }}/itmes/info/ecs/">ECS信息({{ecs_count}})</a>
+          <a href="http://{{ server }}/itmes/info/rds/">RDS信息({{rds_count}})</a>
+        </h5>
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>编号</th>
+                  <th>实例ID</th>
+                  <th>实例名称</th>
+                  <th>实例地址</th>
+                  <th>归属项目</th>
+                  <th>状态</th>
+                  <th>工单ID</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% if v_list %}
+                {% for id, v in v_list.items %}
+                <tr>
+                  <td>{{ id }}</td>
+                  <td><a href="http://{{ server }}/itmes/info/slb/{{ v.id }}/">{{ v.id }}</td>
+                  <td>{{ v.name }}</td>
+                  <td>{{ v.add }}</td>
+                  <td>{{ v.project }}</td>
+                  <td>{{ v.status }}</td>
+                  <td>{% if v.association_com == 1 %}
+                    <p>{{ v.status }}</p>
+                    {% elif v.association_com == 2 %}
+                    <a href="http://{{ server }}/itres/info/{{ v.res_id }}/">{{ v.association_id }}
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% endif %}
+            </tbody>
+            </table>
+<!--分页显示，在视图中引用分页变量，进行判断，默认显示页面没有href链接 -->
+            <ul class="pagination">
+            {% if list_page %}
+              {% for pn in list_page.paginator.page_range %}
+                {% ifequal pn list_page.number %}
+            <li role="presentation" class="active"><a>{{ pn }}</a></li>
+                {% else %}
+            <li><a href="?page={{ pn }}">{{ pn }}</a></li>
+                {% endifequal %}
+              {% endfor %}
+            {% endif %}
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}

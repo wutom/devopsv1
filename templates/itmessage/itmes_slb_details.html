@@ -1,0 +1,63 @@
+{% load staticfiles %}
+{% include "index/head.html" %}
+
+{% if details %}
+        <h5 class="page-header"><a href="#">RDS实例信息</a></h5>
+            <div class="table-responsive">
+            <tbody>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                  <td>实例ID</td>
+                  <td>{{ details.LoadBalancerId }}</td>
+                </tr>
+
+                <tr>
+                  <td>创建时间</td>
+                  <td>{{ details.CreateTime }}</td>
+                </tr>
+                <tr>
+                  <td>实例名称</td>
+                  <td>{{ details.LoadBalancerName }}</td>
+                </tr>
+                <tr>
+                  <td>连接地址</td>
+                  <td>{{ details.Address }}</td>
+                </tr>
+                <tr>
+                  <td>实例网络类型</td>
+                  <td>{{ details.AddressType }}</td>
+                </tr>
+                <tr>
+                  <td>网络地址类型</td>
+                  <td>{{ details.NetworkType }}</td>
+                </tr>
+                <tr>
+                  <td>监听端口</td>
+                  <td>{{ details.ListenerPort }}</td>
+                </tr>
+                <tr>
+                  <td>实例状态</td>
+                  <td>{{ details.LoadBalancerStatus }}</td>
+                </tr>
+                <tr>
+                  <td>所在区域</td>
+                  <td>{{ details.RegionId }}</td>
+                </tr>
+                <tr>
+                  <td>可用主区域</td>
+                   <td>{{ details.MasterZoneId }}</td>
+                </tr>
+                <tr>
+                  <td>可用备区域</td>
+                  <td>{{ details.SlaveZoneId }}</td>
+                </tr>
+              </thead>
+            </tbody>
+            </table>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+{% include "index/footer.html" %}
